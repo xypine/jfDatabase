@@ -151,5 +151,14 @@ while exit == 0:
 	else:
 		tindx = choice - 1
 		data = read(starts[tindx], ends[tindx])
-		print(data)
+		toprint = ""
+		lasti = ""
+		for i in data:
+			if i != "*":
+				toprint = toprint + i
+			else:
+				print(toprint)
+				toprint = ""
+			lasti = i
+		print(toprint)
 print("Exit code " + str(exit))
