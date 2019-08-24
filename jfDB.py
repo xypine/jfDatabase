@@ -1,11 +1,15 @@
-import readline, os
+try:
+   import readline
+except:
+   print("Couldn't import readline")
+import os
 
 def rlinput(prompt, prefill=''):
    readline.set_startup_hook(lambda: readline.insert_text(prefill))
    try:
-      return input(prompt)  # or raw_input in Python 2
+		  return input(prompt)  # or raw_input in Python 2
    finally:
-      readline.set_startup_hook()
+		  readline.set_startup_hook()
 
 
 def load():
@@ -49,8 +53,8 @@ def stats(names, starts, ends):
 		print("########################")
 def read(start, end):
 	with open("database.jfDB") as fin:
-    		fin.seek(start)
-    		data = fin.read(end - start)
+				fin.seek(start)
+				data = fin.read(end - start)
 	return data
 exit = 0
 while exit == 0:
@@ -94,12 +98,12 @@ while exit == 0:
 	elif choice == -2:
 		index = int(input("index to delete: "))-1
 		with open("database_record.jfDBR", "r+") as f:
-    			d = f.readlines()
-    			f.seek(0)
-    			for i in range(len(d)):
-        			if i != index:
-            				f.write(d[i])
-    			f.truncate()
+					d = f.readlines()
+					f.seek(0)
+					for i in range(len(d)):
+							if i != index:
+										f.write(d[i])
+					f.truncate()
 	elif choice == -3:
 		index = int(input("Index to edit: "))-1
 		e_start = starts[index]
@@ -107,7 +111,11 @@ while exit == 0:
 		print("editing from "+str(e_start)+" to "+str(e_end))
 		e_current = read(e_start, e_end)
 		print("with the size of "+ str(len(e_current)))
-		e_new = rlinput("Edit: ", e_current)
+		try:
+			e_new = rlinput("Edit: ", e_current)
+		except:
+			print("Old:" + e_current)
+			e_new = input("New: ")
 		if len(e_current) > len(e_new):
 			e_new = e_new + str("0"*(len(e_current)-len(e_new)))
 		if len(e_current) < len(e_new):
@@ -127,12 +135,12 @@ while exit == 0:
 		e_current = read(e_start, e_end)
 		e_new = "0"*len(e_current)
 		with open("database_record.jfDBR", "r+") as f:
-    			d = f.readlines()
-    			f.seek(0)
-    			for i in range(len(d)):
-        			if i != index:
-            				f.write(d[i])
-    			f.truncate()
+					d = f.readlines()
+					f.seek(0)
+					for i in range(len(d)):
+							if i != index:
+										f.write(d[i])
+					f.truncate()
 		with open("database.jfDB", "r+") as f:
 			old = f.read() # read everything in the file
 			f.truncate()
