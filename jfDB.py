@@ -1,4 +1,4 @@
-import readline
+import readline, os
 
 def rlinput(prompt, prefill=''):
    readline.set_startup_hook(lambda: readline.insert_text(prefill))
@@ -66,6 +66,13 @@ while exit == 0:
 	print("0: exit")
 	print("Please choose an entry to read (0-"+str(len(names))+"), or type in a direct command")
 	choice = int(input("Input: "))
+	try:
+		os.system("clear")
+	except:
+		try:
+			os.system("cls")
+		except:
+			print("Couldn't erase screen")
 	if choice == 0:
 		exit = 1
 		break
